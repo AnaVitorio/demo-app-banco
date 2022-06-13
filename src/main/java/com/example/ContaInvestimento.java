@@ -6,8 +6,13 @@ public class ContaInvestimento extends Conta {
     public void investir(Cliente cliente, double valor){
         if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Física")){
             //saldo + 2%
+            // deposita = 100
+            //consulta saldo = 102
+            // cada consulta aplica mais 2%
+            //rendimento 
         }else{
-            //saldo ou saldo + 1%
+            //saldo 
+            
         }
     }
 }

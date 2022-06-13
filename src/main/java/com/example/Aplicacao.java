@@ -7,7 +7,9 @@ public class Aplicacao
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-        Cliente clienteFisico = new Cliente();
+
+        ClientePf clienteFisico = new ClientePf();
+        clienteFisico.abrirConta(clienteFisico);
         clienteFisico.depositar(clienteFisico, 100);
         clienteFisico.setTipoDeConta(enumTipoDeConta.CONTA_CONRRENTE);
        

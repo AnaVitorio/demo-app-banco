@@ -47,32 +47,16 @@ public class Conta implements Funcoes {
         this.tipoDeConta = enumTipoDeConta;
     }
 
+    //passar um cliente como parametro e criar a conta a partir do cliente
     @Override
-    public void abrirConta(String nome, int numeroTipoCliente, int numeroTipoDeConta){
-        Cliente cliente = new Cliente();
-        cliente.setNome(nome);
-    
-        if(numeroTipoCliente == 1){
-            cliente.setTipoCliente(enumTipoCliente.PESSOA_FISICA);
-        } else if(numeroTipoCliente == 2){
-            cliente.setTipoCliente(enumTipoCliente.PESSOA_JURIDICA);
-        }
-
-        if(numeroTipoDeConta == 1){
-            cliente.setTipoDeConta(enumTipoDeConta.CONTA_CONRRENTE);
-        } else if(numeroTipoDeConta == 2){
-            cliente.setTipoDeConta(enumTipoDeConta.CONTA_POUPANCA);
-        } else if(numeroTipoDeConta == 3){
-            cliente.setTipoDeConta(enumTipoDeConta.CONTA_INVESTIMENTO);
-        }
-
+    public void abrirConta(Cliente cliente){
         cliente.setEstadoConta(enumEstadoConta.ABERTA);
-
     }
 
-     //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
+    //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
     @Override
     public void depositar(Cliente cliente, double valor) {
+        // verificar se o valor é negativo
         if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
             double taxa = 0.5;
             double valorTaxa = (valor * taxa)/100;
@@ -85,9 +69,12 @@ public class Conta implements Funcoes {
 
     @Override
     public void transferir(Cliente cliente, double valor) {
-        this.saldo = this.saldo - valor;
-        cliente.setSaldo(cliente.getSaldo() + valor);
-        
+        if(valor > 0){
+            this.saldo = this.saldo - valor;
+            cliente.setSaldo(cliente.getSaldo() + valor);
+        } else{
+            System.out.println("Não é possível depositar valor menor ou igual a zero.");
+        }
     }
 
     @Override
