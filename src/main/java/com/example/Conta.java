@@ -7,7 +7,6 @@ import com.example.Interfaces.Funcoes;
 
 public class Conta implements Funcoes {
     private int numeroConta;
-    private int agencia;
     private double saldo;
     private enumEstadoConta estadoConta = enumEstadoConta.FECHADA;
     private enumTipoDeConta tipoDeConta;
@@ -19,12 +18,7 @@ public class Conta implements Funcoes {
     public void setNumeroConta(int numeroConta) {
         this.numeroConta = numeroConta;
     }
-    public int getAgencia() {
-        return agencia;
-    }
-    public void setAgencia(int agencia) {
-        this.agencia = agencia;
-    }
+   
     public double getSaldo() {
         return saldo;
     }
@@ -49,29 +43,37 @@ public class Conta implements Funcoes {
 
     //passar um cliente como parametro e criar a conta a partir do cliente
     @Override
-    public void abrirConta(Cliente cliente){
+    public void abrirConta(Cliente cliente, enumTipoDeConta tipoDeConta){
+        cliente.setTipoDeConta(tipoDeConta);
         cliente.setEstadoConta(enumEstadoConta.ABERTA);
     }
 
-    //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
+    
     @Override
     public void depositar(Cliente cliente, double valor) {
-        // verificar se o valor é negativo
-        if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
-            double taxa = 0.5;
-            double valorTaxa = (valor * taxa)/100;
-            this.saldo = this.saldo + valor - valorTaxa;
-        } else{
+        if(valor > 0){
             this.saldo = this.saldo + valor;
+        } else{
+            System.out.println("Deposite um valor maior que zero.");
         }
         
     }
 
+    //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
     @Override
     public void transferir(Cliente cliente, double valor) {
         if(valor > 0){
-            this.saldo = this.saldo - valor;
-            cliente.setSaldo(cliente.getSaldo() + valor);
+            if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
+                double taxa = 0.5;
+                double valorTaxa = (valor * taxa)/100;
+                this.saldo = this.saldo - (valor + valorTaxa);
+                cliente.setSaldo(cliente.getSaldo() + valor);
+            }else{
+                this.saldo = this.saldo - valor;
+                cliente.setSaldo(cliente.getSaldo() + valor);
+            }
+            System.out.printf("Transferência realizada com sucesso.\n"+ 
+                "* Valor transferido:R$ %.2f\n * Saldo atual: R$ %.2f", valor, this.saldo);
         } else{
             System.out.println("Não é possível depositar valor menor ou igual a zero.");
         }
@@ -83,14 +85,23 @@ public class Conta implements Funcoes {
     }
     
 
-    public String sacar(double valor){
-        if((valor <= this.saldo) && (this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")){
-            this.saldo = this.saldo - valor;
-            return "Valor sacado: " + valor + " Saldo Atual: " + this.saldo;
+    public String sacar(Cliente cliente, double valor){
+        if((valor <= this.saldo && valor > 0) && (this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")){
+            if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
+                double taxa = 0.5;
+                double valorTaxa = (valor * taxa)/100;
+                this.saldo = this.saldo - (valor + valorTaxa);   
+            } else{
+                this.saldo = this.saldo - valor;
+            }
+
+            return "Valor sacado: R$ " + valor + " Saldo Atual: R$ " + this.saldo;
+
         } else{
             return "Não foi possível realizar o saque, por alguns dos motivos a baixo:\n"+ 
             "* Saldo insuficiente\n"+
-            "* Sua conta é do tipo Investimento";
+            "* Sua conta é do tipo Investimento\n"+
+            "* Tentativa de sacar valor negativo";
         }
 
     }

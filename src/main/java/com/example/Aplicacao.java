@@ -6,14 +6,20 @@ public class Aplicacao
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
 
+        // Cliente PF
         ClientePf clienteFisico = new ClientePf();
-        clienteFisico.abrirConta(clienteFisico);
+        clienteFisico.setNome("João");
+        clienteFisico.setCpf("111.111.111.11");
+        //João abre conta corrente
+        clienteFisico.abrirConta(clienteFisico, enumTipoDeConta.CONTA_CORRENTE);
         clienteFisico.depositar(clienteFisico, 100);
-        clienteFisico.setTipoDeConta(enumTipoDeConta.CONTA_CONRRENTE);
        
-        System.out.println(clienteFisico.consultarSaldo());
-        System.out.println(clienteFisico.sacar(50));
+        System.out.println("Nome: "+clienteFisico.getNome());
+        System.out.println("CPF: "+clienteFisico.getCpf());
+        System.out.println("Estado da Conta: "+clienteFisico.getEstadoConta().getNomeEstadoConta());
+        System.out.println("Tipo de Conta: "+clienteFisico.getTipoDeConta().getNomeTipoDeConta());
+        System.out.println("Saldo: R$ "+clienteFisico.consultarSaldo());
+        System.out.println(clienteFisico.sacar(clienteFisico, 100));
     }
 }

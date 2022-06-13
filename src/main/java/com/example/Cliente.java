@@ -1,20 +1,10 @@
 package com.example;
 
 import com.example.Enums.enumTipoCliente;
-import com.example.Enums.enumTipoDeConta;
 
 public class Cliente extends Conta {
-    private String nome;
     private enumTipoCliente tipoCliente;
-    private String cpfCnpj;
-    private enumTipoDeConta tipoDeConta;
-
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    private String nome;
 
     public enumTipoCliente getTipoCliente() {
         return tipoCliente;
@@ -23,18 +13,12 @@ public class Cliente extends Conta {
         this.tipoCliente = tipoCliente;
     }
 
-    public String getCpfCnpj() {
-        return cpfCnpj;
+    public String getNome() {
+        return nome;
     }
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public enumTipoDeConta getTipoDeConta() {
-        return tipoDeConta;
-    }
-    public void setTipoDeConta(enumTipoDeConta tipoDeConta) {
-        this.tipoDeConta = tipoDeConta;
-    }
     
 }

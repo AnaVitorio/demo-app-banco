@@ -1,7 +1,7 @@
 package com.example.Enums;
 
 public enum enumTipoDeConta {
-    CONTA_CONRRENTE(1, "Conta Corrente"),
+    CONTA_CORRENTE(1, "Conta Corrente"),
     CONTA_POUPANCA(2, "Conta Poupança"),
     CONTA_INVESTIMENTO(3, "Conta Investimento");
 
