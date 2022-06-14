@@ -28,7 +28,7 @@ public class Aplicacao
         clienteJuridico.abrirConta(clienteJuridico, enumTipoDeConta.CONTA_CORRENTE);
         clienteJuridico.depositar(clienteJuridico, 1000);
 
-        clienteFisico.transferir(clienteJuridico, clienteFisico, 10);
+        clienteFisico.transferir(clienteJuridico, 10);
 
         System.out.println();
         System.out.println(clienteJuridico.getSaldo());

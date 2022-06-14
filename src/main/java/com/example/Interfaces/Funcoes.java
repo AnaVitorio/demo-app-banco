@@ -1,12 +1,12 @@
 package com.example.Interfaces;
 
-import com.example.Cliente;
+import com.example.Conta;
 import com.example.Enums.enumTipoDeConta;
 
 public interface Funcoes {
-    public void abrirConta(Cliente cliente, enumTipoDeConta tipoDeConta);
-    public void depositar(Cliente cliente, double valor);
-    public void transferir(Cliente clienteQueTranfere, Cliente clienteQueRecebe, double valor);
+    public void abrirConta(Conta cliente, enumTipoDeConta tipoDeConta);
+    public void depositar(Conta cliente, double valor);
+    public void transferir(Conta clienteQueRecebe, double valor);
     public double consultarSaldo();
     
 }

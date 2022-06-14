@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.Enums.enumEstadoConta;
+import com.example.Enums.enumTipoCliente;
 import com.example.Enums.enumTipoDeConta;
 import com.example.Interfaces.Funcoes;
 
@@ -9,7 +10,7 @@ public class Conta implements Funcoes {
     private double saldo;
     private enumEstadoConta estadoConta = enumEstadoConta.FECHADA;
     private enumTipoDeConta tipoDeConta;
-
+    private enumTipoCliente tipoCliente;
 
     public int getNumeroConta() {
         return numeroConta;
@@ -40,16 +41,24 @@ public class Conta implements Funcoes {
         this.tipoDeConta = enumTipoDeConta;
     }
 
+    public enumTipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(enumTipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
     
     @Override
-    public void abrirConta(Cliente cliente, enumTipoDeConta tipoDeConta){
+    public void abrirConta(Conta cliente, enumTipoDeConta tipoDeConta){
         cliente.setTipoDeConta(tipoDeConta);
         cliente.setEstadoConta(enumEstadoConta.ABERTA);
     }
 
     
     @Override
-    public void depositar(Cliente cliente, double valor) {
+    public void depositar(Conta cliente, double valor) {
         if(valor > 0){
             this.saldo = this.saldo + valor;
         } else{
@@ -60,20 +69,21 @@ public class Conta implements Funcoes {
 
     //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
     @Override
-    public void transferir(Cliente clienteQueTranfere, Cliente clienteQueRecebe, double valor) {
-        if((valor > 0) && (valor <= clienteQueTranfere.getSaldo())){
-            if(clienteQueTranfere.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
+    public void transferir(Conta clienteQueRecebe, double valor) {
+        if((valor > 0) && (valor <= this.getSaldo())){
+            if(this.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
                 double taxa = 0.5;
                 double valorTaxa = (valor * taxa)/100;
-                clienteQueTranfere.setSaldo(clienteQueTranfere.getSaldo() - (valor+valorTaxa));
+                this.setSaldo(this.getSaldo() - (valor+valorTaxa));
                 clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo() + valor);
                 
             }else{
-                clienteQueTranfere.setSaldo(clienteQueTranfere.getSaldo() - valor);
+                this.setSaldo(this.getSaldo() - valor);
                 clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo() + valor);
+                
             }
             System.out.printf("Transferência realizada com sucesso.\n"+ 
-                "* Valor transferido:R$ %.2f\n * Saldo atual: R$ %.2f", valor,clienteQueTranfere.getSaldo());
+                "* Valor transferido:R$ %.2f\n * Saldo atual: R$ %.2f", valor,this.getSaldo());
         } else{
             System.out.println("Não é possível depositar valor menor ou igual a zero.\nVerifique o saldo da sua conta.");
         }
@@ -85,7 +95,7 @@ public class Conta implements Funcoes {
     }
     
 
-    public String sacar(Cliente cliente, double valor){
+    public String sacar(Conta cliente, double valor){
         if((valor <= this.saldo && valor > 0) && (this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")){
             if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
                 double taxa = 0.5;

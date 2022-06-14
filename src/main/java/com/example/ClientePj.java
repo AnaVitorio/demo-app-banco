@@ -2,11 +2,19 @@ package com.example;
 import com.example.Enums.enumTipoCliente;
 
 
-public class ClientePj extends Cliente {
+public class ClientePj extends Conta {
+    private String nome;
     private String cnpj;
     private enumTipoCliente tipoCliente = enumTipoCliente.PESSOA_JURIDICA;
     //private String tipoDeConta = "Conta Corrente";
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getCnpj() {
         return cnpj;
