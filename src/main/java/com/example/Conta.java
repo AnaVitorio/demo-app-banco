@@ -15,6 +15,7 @@ public class Conta implements Funcoes {
     public int getNumeroConta() {
         return numeroConta;
     }
+    
     public void setNumeroConta(int numeroConta) {
         this.numeroConta = numeroConta;
     }
