@@ -46,23 +46,30 @@ public class Conta implements Funcoes {
     public void abrirConta(Conta cliente, enumTipoDeConta tipoDeConta){
         cliente.setTipoDeConta(tipoDeConta);
         cliente.setEstadoConta(enumEstadoConta.ABERTA);
+        System.out.println("Conta aberta com sucesso!");
     }
 
     
     @Override
     public void depositar(Conta cliente, double valor) {
-        if(valor > 0){
-            this.saldo = this.saldo + valor;
-        } else{
-            System.out.println("Deposite um valor maior que zero.");
+        if(!verificaSeContaEstaAberta(cliente)){
+            System.out.println("Sua conta ainda não está aberta!");
+        }else{
+            if((valor > 0)){
+                this.saldo = this.saldo + valor;
+            } else{
+                System.out.println("Deposite um valor maior que zero.");
+            }
         }
-        
     }
 
     //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
     @Override
     public void transferir(Conta clienteQueRecebe, double valor) {
-        if((valor > 0) && (valor <= this.getSaldo())){
+        if((valor > 0) 
+        && (valor <= this.getSaldo()) 
+        && (verificaSeContaEstaAberta(clienteQueRecebe))
+        && (verificaSeContaEstaAberta(this))){
             if(this.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
                 double taxa = 0.5;
                 double valorTaxa = (valor * taxa)/100;
@@ -77,7 +84,20 @@ public class Conta implements Funcoes {
             System.out.printf("Transferência realizada com sucesso.\n"+ 
                 "* Valor transferido:R$ %.2f\n * Saldo atual: R$ %.2f", valor,this.getSaldo());
         } else{
-            System.out.println("Não é possível depositar valor menor ou igual a zero.\nVerifique o saldo da sua conta.");
+            System.out.println("Não foi possível realizar a transferência por um dos motivos a baixo:\n"+
+            "*Tentativa de transferência de valor menor ou igual a zero.\n"+
+            "*Você não possui saldo suficiente para realizar essa transferência.\n"+
+            "*Sua conta está com estado fechada.\n"+
+            "*A conta destino da tranferência está com o estado fechada."
+            );
+        }
+    }
+
+    public boolean verificaSeContaEstaAberta(Conta conta){
+        if(conta.getEstadoConta().getNomeEstadoConta().equals("Aberta")){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -87,13 +107,15 @@ public class Conta implements Funcoes {
     }
     
 
-    public String sacar(Conta cliente, double valor){
-        if((valor <= this.saldo && valor > 0) && (this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")){
-            if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
+    public String sacar(double valor){
+        if((valor <= this.saldo && valor > 0) 
+        && (this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")
+        && (verificaSeContaEstaAberta(this))){
+            if(this.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
                 double taxa = 0.5;
                 double valorTaxa = (valor * taxa)/100;
-                this.saldo = this.saldo - (valor + valorTaxa);   
-            } else{
+                this.saldo = this.saldo - (valor + valorTaxa);  
+            } else if(verificaSeContaEstaAberta(this)){
                 this.saldo = this.saldo - valor;
             }
 
