@@ -6,19 +6,10 @@ import com.example.Enums.enumTipoDeConta;
 import com.example.Interfaces.Funcoes;
 
 public class Conta implements Funcoes {
-    private int numeroConta;
     private double saldo;
     private enumEstadoConta estadoConta = enumEstadoConta.FECHADA;
     private enumTipoDeConta tipoDeConta;
     private enumTipoCliente tipoCliente;
-
-    public int getNumeroConta() {
-        return numeroConta;
-    }
-    
-    public void setNumeroConta(int numeroConta) {
-        this.numeroConta = numeroConta;
-    }
    
     public double getSaldo() {
         return saldo;
@@ -115,5 +106,12 @@ public class Conta implements Funcoes {
             "* Tentativa de sacar valor negativo";
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "Conta [estadoConta=" + this.getEstadoConta().getNomeEstadoConta() + ", saldo=" + saldo
+                + ", tipoCliente=" + this.getTipoCliente().getNomeTipoCliente() + 
+                ", tipoDeConta=" + this.getTipoDeConta().getNomeTipoDeConta() + "]";
     }
 }

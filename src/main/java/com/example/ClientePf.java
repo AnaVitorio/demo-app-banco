@@ -29,7 +29,10 @@ public class ClientePf extends Conta {
     
     @Override
     public String toString() {
-        return "ClientePf [cpf=" + cpf + ", tipoCliente=" + tipoCliente + "]";
+        return "ClientePf [Nome=" + nome + ", CPF=" + cpf + ", Tipo de Cliente=" + this.getTipoCliente().getNomeTipoCliente()+
+        ", Estado da Conta="+ this.getEstadoConta().getNomeEstadoConta()+", Tipo de Conta="+ 
+        this.getTipoDeConta().getNomeTipoDeConta()+", Saldo="+ this.getSaldo()+
+        "]";
     }
    
 }

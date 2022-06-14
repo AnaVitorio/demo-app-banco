@@ -32,6 +32,14 @@ public class ClientePj extends Conta {
         return tipoDeConta;
     }
 
+    @Override
+    public String toString() {
+        return "ClientePj [Nome=" + nome + ", CNPJ=" + cnpj + ", Tipo de Cliente=" + this.getTipoCliente().getNomeTipoCliente()+
+        ", Estado da Conta="+ this.getEstadoConta().getNomeEstadoConta()+", Tipo de Conta="+ 
+        this.getTipoDeConta().getNomeTipoDeConta()+", Saldo="+ this.getSaldo()+
+        "]";
+    }
+
     
   
 }
