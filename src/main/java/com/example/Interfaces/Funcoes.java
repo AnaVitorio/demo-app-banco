@@ -6,7 +6,7 @@ import com.example.Enums.enumTipoDeConta;
 public interface Funcoes {
     public void abrirConta(Cliente cliente, enumTipoDeConta tipoDeConta);
     public void depositar(Cliente cliente, double valor);
-    public void transferir(Cliente cliente, double valor);
+    public void transferir(Cliente clienteQueTranfere, Cliente clienteQueRecebe, double valor);
     public double consultarSaldo();
     
 }

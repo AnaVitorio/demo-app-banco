@@ -20,6 +20,17 @@ public class Aplicacao
         System.out.println("Estado da Conta: "+clienteFisico.getEstadoConta().getNomeEstadoConta());
         System.out.println("Tipo de Conta: "+clienteFisico.getTipoDeConta().getNomeTipoDeConta());
         System.out.println("Saldo: R$ "+clienteFisico.consultarSaldo());
-        System.out.println(clienteFisico.sacar(clienteFisico, 100));
+        // System.out.println(clienteFisico.sacar(clienteFisico, 100));
+        //Cliente PJ
+        ClientePj clienteJuridico = new ClientePj();
+        clienteJuridico.setNome("Empresa José");
+        clienteJuridico.setCnpj("0000000000000000");
+        clienteJuridico.abrirConta(clienteJuridico, enumTipoDeConta.CONTA_CORRENTE);
+
+        clienteFisico.transferir(clienteFisico, clienteJuridico, 10);
+
+        //System.out.println(clienteJuridico.getSaldo());
+        System.out.println();
+        System.out.println(clienteJuridico.getSaldo());
     }
 }

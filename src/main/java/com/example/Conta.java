@@ -41,7 +41,7 @@ public class Conta implements Funcoes {
         this.tipoDeConta = enumTipoDeConta;
     }
 
-    //passar um cliente como parametro e criar a conta a partir do cliente
+    
     @Override
     public void abrirConta(Cliente cliente, enumTipoDeConta tipoDeConta){
         cliente.setTipoDeConta(tipoDeConta);
@@ -61,21 +61,22 @@ public class Conta implements Funcoes {
 
     //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
     @Override
-    public void transferir(Cliente cliente, double valor) {
-        if(valor > 0){
-            if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
+    public void transferir(Cliente clienteQueTranfere, Cliente clienteQueRecebe, double valor) {
+        if((valor > 0) && (valor <= clienteQueTranfere.getSaldo())){
+            if(clienteQueTranfere.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
                 double taxa = 0.5;
                 double valorTaxa = (valor * taxa)/100;
-                this.saldo = this.saldo - (valor + valorTaxa);
-                cliente.setSaldo(cliente.getSaldo() + valor);
+                clienteQueTranfere.setSaldo(clienteQueTranfere.getSaldo() - (valor+valorTaxa));
+                clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo() + valor);
+                
             }else{
-                this.saldo = this.saldo - valor;
-                cliente.setSaldo(cliente.getSaldo() + valor);
+                clienteQueTranfere.setSaldo(clienteQueTranfere.getSaldo() - valor);
+                clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo() + valor);
             }
             System.out.printf("Transferência realizada com sucesso.\n"+ 
-                "* Valor transferido:R$ %.2f\n * Saldo atual: R$ %.2f", valor, this.saldo);
+                "* Valor transferido:R$ %.2f\n * Saldo atual: R$ %.2f", valor,clienteQueTranfere.getSaldo());
         } else{
-            System.out.println("Não é possível depositar valor menor ou igual a zero.");
+            System.out.println("Não é possível depositar valor menor ou igual a zero.\nVerifique o saldo da sua conta.");
         }
     }
 

@@ -11,7 +11,8 @@ public class ContaInvestimento extends Conta {
             // cada consulta aplica mais 2%
             //rendimento 
         }else{
-            //saldo 
+            //saldo
+           cliente.setSaldo(cliente.getSaldo() + valor);
             
         }
     }
