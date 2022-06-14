@@ -26,11 +26,15 @@ public class Aplicacao
         clienteJuridico.setNome("Empresa José");
         clienteJuridico.setCnpj("0000000000000000");
         clienteJuridico.abrirConta(clienteJuridico, enumTipoDeConta.CONTA_CORRENTE);
+        clienteJuridico.depositar(clienteJuridico, 1000);
 
-        clienteFisico.transferir(clienteFisico, clienteJuridico, 10);
+        clienteFisico.transferir(clienteJuridico, clienteFisico, 10);
 
-        //System.out.println(clienteJuridico.getSaldo());
         System.out.println();
         System.out.println(clienteJuridico.getSaldo());
+        System.out.println(clienteFisico.getSaldo());
+    
+        
+
     }
 }

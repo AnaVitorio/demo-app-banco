@@ -1,7 +1,6 @@
 package com.example;
 
 import com.example.Enums.enumEstadoConta;
-import com.example.Enums.enumTipoCliente;
 import com.example.Enums.enumTipoDeConta;
 import com.example.Interfaces.Funcoes;
 
