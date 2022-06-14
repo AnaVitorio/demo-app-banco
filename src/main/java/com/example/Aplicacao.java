@@ -39,31 +39,33 @@ public class Aplicacao
         // clienteJuridico.depositar(clienteFisico, 100);
         
         //Criando uma Conta Investimento pessoa física
-        // System.out.println();
-        // ContaInvestimento novoCliente = new ContaInvestimento();
-        // novoCliente.setTipoCliente(enumTipoCliente.PESSOA_FISICA);
-        // novoCliente.investir(novoCliente, 150);
-        // System.out.println();
-        // System.out.println(novoCliente.getSaldo());
+        System.out.println();
+        ContaInvestimento novoCliente = new ContaInvestimento();
+        novoCliente.abrirConta(novoCliente, enumTipoDeConta.CONTA_INVESTIMENTO);
+        novoCliente.setTipoCliente(enumTipoCliente.PESSOA_FISICA);
+        novoCliente.investir(novoCliente, 150);
+        System.out.println();
+        System.out.println(novoCliente.getSaldo());
 
         //Criando uma Conta Investimento pessoa jurídica
-        // ContaInvestimento novoClientePj = new ContaInvestimento();
-        // novoClientePj.setTipoCliente(enumTipoCliente.PESSOA_JURIDICA);
-        // novoClientePj.investir(novoClientePj, 200);
-        // System.out.println();
-        // System.out.println(novoClientePj.getSaldo());
-        // System.out.println(novoClientePj.toString());
+        ContaInvestimento novoClientePj = new ContaInvestimento();
+        novoClientePj.abrirConta(novoClientePj, enumTipoDeConta.CONTA_INVESTIMENTO);
+        novoClientePj.setTipoCliente(enumTipoCliente.PESSOA_JURIDICA);
+        novoClientePj.investir(novoClientePj, 200);
+        System.out.println();
+        System.out.println(novoClientePj.getSaldo());
+        System.out.println(novoClientePj.toString());
 
-        ClientePf ana = new ClientePf();
-        ClientePf lucas = new ClientePf();
-        ana.abrirConta(ana, enumTipoDeConta.CONTA_CORRENTE);
-        //lucas.abrirConta(lucas, enumTipoDeConta.CONTA_CORRENTE);
-        ana.depositar(ana, 100);
-        ana.transferir(lucas, 50);
-        System.out.println(ana.getSaldo());
-        System.out.println(lucas.getSaldo());
-        ana.sacar(80);
-        System.out.println(ana.consultarSaldo()); 
+        // ClientePf ana = new ClientePf();
+        // ClientePf lucas = new ClientePf();
+        // ana.abrirConta(ana, enumTipoDeConta.CONTA_CORRENTE);
+        // lucas.abrirConta(lucas, enumTipoDeConta.CONTA_CORRENTE);
+        // ana.depositar(ana, 100);
+        // ana.transferir(lucas, 50);
+        // System.out.println(ana.getSaldo());
+        // System.out.println(lucas.getSaldo());
+        // ana.sacar(80);
+        // System.out.println(ana.consultarSaldo()); 
         
         
 

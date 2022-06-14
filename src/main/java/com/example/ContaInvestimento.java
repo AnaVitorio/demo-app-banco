@@ -27,8 +27,9 @@ public class ContaInvestimento extends Conta {
 
     public void investir(Conta cliente, double valor){
 
-        if(!cliente.getTipoDeConta().getNomeTipoDeConta().equals("Conta Investimento")){
-            System.out.println("Para realizar um investimento é preciso informa uma conta do tipo Investimento.");
+        if(!cliente.getTipoDeConta().getNomeTipoDeConta().equals("Conta Investimento")
+        || !(verificaSeContaEstaAberta(cliente))){
+            System.out.println("Para realizar um investimento é preciso informa uma conta do tipo Investimento que esteja aberta.");
         } else{
             if(cliente.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
                 cliente.setSaldo(cliente.getSaldo() + (cliente.getSaldo() * 2) /100);
