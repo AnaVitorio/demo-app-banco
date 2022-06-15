@@ -43,8 +43,9 @@ public class Conta implements Funcoes {
 
     
     @Override
-    public void abrirConta(Conta cliente, enumTipoDeConta tipoDeConta){
+    public void abrirConta(Conta cliente, enumTipoDeConta tipoDeConta, enumTipoCliente tipoDeCliente){
         cliente.setTipoDeConta(tipoDeConta);
+        cliente.setTipoCliente(tipoDeCliente);
         cliente.setEstadoConta(enumEstadoConta.ABERTA);
         System.out.println("Conta aberta com sucesso!");
     }
