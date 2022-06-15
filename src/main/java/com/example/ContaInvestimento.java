@@ -4,10 +4,18 @@ import com.example.Enums.enumTipoDeConta;
 
 public class ContaInvestimento extends Conta {
     private enumTipoDeConta tipoDeConta = enumTipoDeConta.CONTA_INVESTIMENTO;
-    private double saldo;
 
     public enumTipoDeConta getTipoDeConta() {
         return tipoDeConta;
+    }
+
+    public double consultarInvestimento(){
+        if(this.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
+            this.setSaldo(this.getSaldo()+2);
+            return this.getSaldo();
+        }else{
+            return this.getSaldo();
+        }
     }
 
     public void investir(double valor){
@@ -26,13 +34,5 @@ public class ContaInvestimento extends Conta {
         }    
     }
 
-    // public void investir(double valor){
-    //     if(!(this.getTipoDeConta().getNomeTipoDeConta().equals("Conta Investimento"))){
-    //         System.out.println("Não é uma conta investimento.");
-    //     }else{
-    //         this.setSaldo(this.getSaldo() + valor);
-    //     }
-
-    // }
     
 }

@@ -56,6 +56,14 @@ public class Aplicacao
         System.out.println(novoClientePj.toString());
 
         
+        //Concultando o Investimento do cliente PJ
+        System.out.println(novoClientePj.consultarInvestimento());
+        System.out.println(novoClientePj.consultarInvestimento());
+        System.out.println(novoClientePj.consultarInvestimento());
+        System.out.println(novoClientePj.toString());
+
+
+        
         ClientePf maria = new ClientePf();
         ClientePf joao = new ClientePf();
         maria.abrirConta(maria, enumTipoDeConta.CONTA_CORRENTE,enumTipoCliente.PESSOA_JURIDICA );
