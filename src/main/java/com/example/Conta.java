@@ -1,20 +1,22 @@
 package com.example;
 
+import java.math.BigDecimal;
+
 import com.example.Enums.enumEstadoConta;
 import com.example.Enums.enumTipoCliente;
 import com.example.Enums.enumTipoDeConta;
 import com.example.Interfaces.Funcoes;
 
 public class Conta implements Funcoes {
-    private double saldo;
+    private BigDecimal saldo = new BigDecimal(0);
     private enumEstadoConta estadoConta = enumEstadoConta.FECHADA;
     private enumTipoDeConta tipoDeConta;
     private enumTipoCliente tipoCliente;
    
-    public double getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
-    public void setSaldo(double saldo) {
+    public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
     public enumEstadoConta getEstadoConta() {
@@ -52,34 +54,33 @@ public class Conta implements Funcoes {
 
     
     @Override
-    public void depositar(Conta cliente, double valor) {
+    public void depositar(Conta cliente, BigDecimal valor) {
         if(!verificaSeContaEstaAberta(cliente)){
             System.out.println("Sua conta ainda não está aberta!");
         }else{
-            if((valor > 0)){
-                this.saldo = this.saldo + valor;
+            BigDecimal zero = new BigDecimal(0);
+            if((valor.compareTo(zero) == 1)){
+                cliente.setSaldo(cliente.getSaldo().add(valor));
             } else{
                 System.out.println("Deposite um valor maior que zero.");
             }
         }
     }
 
-    //PJ existe a cobrança de uma taxa de 0.5% para cada saque ou transferência
     @Override
-    public void transferir(Conta clienteQueRecebe, double valor) {
-        if((valor > 0) 
-        && (valor <= this.getSaldo()) 
+    public void transferir(Conta clienteQueRecebe, BigDecimal valor) {
+        if((valor.compareTo(this.saldo) == -1
+        || valor.equals(this.saldo)) 
         && (verificaSeContaEstaAberta(clienteQueRecebe))
         && (verificaSeContaEstaAberta(this))){
             if(this.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
-                double taxa = 0.5;
-                double valorTaxa = (valor * taxa)/100;
-                this.setSaldo(this.getSaldo() - (valor+valorTaxa));
-                clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo() + valor);
+                BigDecimal taxa = new BigDecimal(0);
+                this.setSaldo(this.getSaldo().subtract((valor.add(valor.multiply(taxa).divide(new BigDecimal(100))))));
+                clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo().add(valor));
                 
             }else{
-                this.setSaldo(this.getSaldo() - valor);
-                clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo() + valor);
+                this.setSaldo(this.getSaldo().subtract(valor));
+                clienteQueRecebe.setSaldo(clienteQueRecebe.getSaldo().add(valor));
                 
             }
             System.out.printf("Transferência realizada com sucesso.\n"+ 
@@ -103,21 +104,22 @@ public class Conta implements Funcoes {
     }
 
     @Override
-    public double consultarSaldo(){
+    public BigDecimal consultarSaldo(){
        return this.getSaldo(); 
     }
     
 
-    public String sacar(double valor){
-        if((valor <= this.saldo && valor > 0) 
-        && (this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")
+    public String sacar(BigDecimal valor){
+        if((valor.compareTo(this.saldo) == -1
+        ||valor.equals(this.saldo))
+        &&(valor.compareTo(new BigDecimal(0)) == 1)
+        &&(this.getTipoDeConta().getNomeTipoDeConta() != "Conta Investimento")
         && (verificaSeContaEstaAberta(this))){
             if(this.getTipoCliente().getNomeTipoCliente().equals("Pessoa Jurídica")){
-                double taxa = 0.5;
-                double valorTaxa = (valor * taxa)/100;
-                this.saldo = this.saldo - (valor + valorTaxa);  
+                BigDecimal taxa = new BigDecimal(0.5);
+                this.saldo = this.saldo.subtract(valor.add(valor.multiply(taxa).divide(new BigDecimal(100))));  
             } else if(verificaSeContaEstaAberta(this)){
-                this.saldo = this.saldo - valor;
+                this.saldo = this.saldo.subtract(valor);
             }
 
             return "Valor sacado: R$ " + valor + " Saldo Atual: R$ " + this.saldo;

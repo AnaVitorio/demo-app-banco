@@ -5,7 +5,6 @@ import com.example.Enums.enumTipoCliente;
 import com.example.Enums.enumTipoDeConta;
 
 public class ContaPoupanca extends Conta {
-    //Cliente PJ não abre conta popança
     private enumTipoDeConta tipoDeConta = enumTipoDeConta.CONTA_POUPANCA;
     private enumEstadoConta estadoConta = enumEstadoConta.FECHADA;
 
